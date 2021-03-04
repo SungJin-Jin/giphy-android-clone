@@ -1,0 +1,31 @@
+ext {
+
+    kotlinPackage = 'org.jetbrains.kotlin'
+    kotlinDependencies = [
+            kotlinStdlib : dependency(kotlinPackage, "kotlin-stdlib", kotlin_version),
+            kotlinReflect: dependency(kotlinPackage, "kotlin-reflect", kotlin_version),
+    ]
+
+    androidxCorePackage = 'androidx.core'
+    androidxCoreVersion = '1.3.2'
+
+    androidxAppcompatPackage = 'androidx.appcompat'
+    androidxAppcompatVersion = '1.2.0'
+
+    androidxConstraintLayoutPackage = 'androidx.constraintlayout'
+    androidxConstraintLayoutVersion = '2.0.4'
+
+    androidxDedepencies = [
+            coreKtx         : dependency(androidxCorePackage, 'core-ktx', androidxCoreVersion),
+            appcompat       : dependency(androidxAppcompatPackage, 'appcompat', androidxAppcompatVersion),
+            constraintLayout: dependency(androidxConstraintLayoutPackage, 'constraintlayout', androidxConstraintLayoutVersion)
+    ]
+
+    materialPackage = 'com.google.android.material'
+    materialVersion = '1.2.1'
+    material = dependency(materialPackage, 'material', materialVersion)
+}
+
+private static String dependency(String pack, String artifact, String version) {
+    return "${pack}:${artifact}:${version}"
+}
