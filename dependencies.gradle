@@ -15,15 +15,36 @@ ext {
     androidxConstraintLayoutPackage = 'androidx.constraintlayout'
     androidxConstraintLayoutVersion = '2.0.4'
 
+    multiDexPackage = 'androidx.multidex'
+    multiDexVersion = '2.0.0'
+
     androidxDedepencies = [
             coreKtx         : dependency(androidxCorePackage, 'core-ktx', androidxCoreVersion),
             appcompat       : dependency(androidxAppcompatPackage, 'appcompat', androidxAppcompatVersion),
-            constraintLayout: dependency(androidxConstraintLayoutPackage, 'constraintlayout', androidxConstraintLayoutVersion)
+            constraintLayout: dependency(androidxConstraintLayoutPackage, 'constraintlayout', androidxConstraintLayoutVersion),
+            multiDex        : dependency(multiDexPackage, 'multidex', multiDexVersion)
     ]
 
     materialPackage = 'com.google.android.material'
     materialVersion = '1.2.1'
     material = dependency(materialPackage, 'material', materialVersion)
+
+    koinPackage = 'org.koin'
+    koinVersion = '2.0.1'
+    koinDependencies = [
+            androidScope    : dependency(koinPackage, 'koin-androidx-scope', koinVersion),
+            androidViewmodel: dependency(koinPackage, 'koin-androidx-viewmodel', koinVersion),
+            ext             : dependency(koinPackage, 'koin-androidx-ext', koinVersion)
+    ]
+
+    retrofitPackage = 'com.squareup.retrofit2'
+    retrofitVersion = '2.5.0'
+    retrofitDependencies = [
+            retrofit        : dependency(retrofitPackage, 'retrofit', retrofitVersion),
+            adapterRxJava   : dependency(retrofitPackage, 'adapter-rxjava2', retrofitVersion),
+            gsonConverter   : dependency(retrofitPackage, 'converter-gson', retrofitVersion),
+            scalarsConverter: dependency(retrofitPackage, 'converter-scalars', retrofitVersion)
+    ]
 }
 
 private static String dependency(String pack, String artifact, String version) {

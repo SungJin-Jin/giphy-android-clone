@@ -17,12 +17,32 @@ android {
         versionCode 1
         versionName "1.0"
 
+        renderscriptSupportModeEnabled true
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            testCoverageEnabled false
+
+            buildConfigField "String", "API_URL", "\"https://api.giphy.com\""
+            buildConfigField "String", "API_KEY", "\"ZmBrXE5OBfbGYt2lxhiJaDKbvxS9NJPf\""
+
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+            proguardFile 'proguard-rules.pro'
+        }
+
         release {
             minifyEnabled false
+
+            buildConfigField "String", "API_URL", "\"https://api.giphy.com\""
+            buildConfigField "String", "API_KEY", "\"ZmBrXE5OBfbGYt2lxhiJaDKbvxS9NJPf\""
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -44,5 +64,14 @@ dependencies {
     implementation androidxDedepencies.constraintLayout
 
     implementation material
+
+    implementation koinDependencies.androidScope
+    implementation koinDependencies.androidViewmodel
+    implementation koinDependencies.ext
+
+    implementation retrofitDependencies.retrofit
+    implementation retrofitDependencies.adapterRxJava
+    implementation retrofitDependencies.gsonConverter
+    implementation retrofitDependencies.scalarsConverter
 
 }
