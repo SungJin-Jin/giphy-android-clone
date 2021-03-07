@@ -3,6 +3,7 @@ package giphy.android.clone.ui.trending
 import androidx.paging.DataSource
 import androidx.paging.PagedList
 import androidx.paging.RxPagedListBuilder
+import giphy.android.clone.base.http.PageOptions.PAGE_SIZE
 import giphy.android.clone.base.preseneter.BasePresenter
 import giphy.android.clone.base.preseneter.RxPresenter
 import giphy.android.clone.ui.gif.Gif
@@ -36,7 +37,7 @@ class TrendingPresenter(
 
     private fun getPagedListConfig() = PagedList.Config.Builder()
         .setEnablePlaceholders(false)
-        .setPageSize(25)
+        .setPageSize(PAGE_SIZE)
         .build()
 
 }
