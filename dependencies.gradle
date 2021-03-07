@@ -37,6 +37,26 @@ ext {
             ext             : dependency(koinPackage, 'koin-androidx-ext', koinVersion)
     ]
 
+    rxPackage = 'io.reactivex.rxjava2'
+    rxJavaVersion = '2.2.7'
+    rxAndroidVersion = '2.1.1'
+
+    rxNetworkPackage = 'com.github.pwittchen'
+    rxNetworkVersion = '3.0.6'
+    rxDependencies = [
+            rxJava   : dependency(rxPackage, 'rxjava', rxJavaVersion),
+            rxAndroid: dependency(rxPackage, 'rxandroid', rxAndroidVersion),
+            rxNetwork: dependency(rxNetworkPackage, 'reactivenetwork-rx2', rxNetworkVersion)
+    ]
+
+    pagingPackage = 'androidx.paging'
+    pagingVersion = '2.1.0'
+    pagingDependencies = [
+            page  : dependency(pagingPackage, 'paging-runtime-ktx', pagingVersion),
+            common: dependency(pagingPackage, 'paging-common-ktx', pagingVersion),
+            pageRx: dependency(pagingPackage, 'paging-rxjava2-ktx', pagingVersion)
+    ]
+
     retrofitPackage = 'com.squareup.retrofit2'
     retrofitVersion = '2.5.0'
     retrofitDependencies = [

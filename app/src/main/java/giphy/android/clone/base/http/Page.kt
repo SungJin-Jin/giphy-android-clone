@@ -10,6 +10,6 @@ data class Page<T>(
 
 data class Pagination(
     var offset: Int = 0,
-    @SerializedName("total_count") var totalCount: Int? = 0,
+    @SerializedName("total_count") var totalCount: Int = 0,
     var count: Int = 0
 )

@@ -1,6 +1,8 @@
 package giphy.android.clone.feature.di
 
 import giphy.android.clone.BuildConfig
+import giphy.android.clone.base.http.ApiKeyInterceptor
+import giphy.android.clone.ui.trending.api.GifTrendingService
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -12,6 +14,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 val networkModule = module {
     factory { provideOkHttpClient() }
     single { provideRetrofit(get()) }
+
+    single { get<Retrofit>().create(GifTrendingService::class.java) }
+
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
@@ -25,5 +30,7 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
 }
 
 fun provideOkHttpClient(): OkHttpClient {
-    return OkHttpClient.Builder().build()
+    return OkHttpClient.Builder()
+        .addInterceptor(ApiKeyInterceptor())
+        .build()
 }

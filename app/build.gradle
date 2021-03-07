@@ -69,6 +69,14 @@ dependencies {
     implementation koinDependencies.androidViewmodel
     implementation koinDependencies.ext
 
+    implementation rxDependencies.rxJava
+    implementation rxDependencies.rxAndroid
+    implementation rxDependencies.rxNetwork
+
+    implementation pagingDependencies.page
+    implementation pagingDependencies.common
+    implementation pagingDependencies.pageRx
+
     implementation retrofitDependencies.retrofit
     implementation retrofitDependencies.adapterRxJava
     implementation retrofitDependencies.gsonConverter
