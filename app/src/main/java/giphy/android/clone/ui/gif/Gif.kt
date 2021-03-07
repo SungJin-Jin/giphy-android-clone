@@ -16,12 +16,12 @@ data class Gif(
 
 ) : Parcelable {
         
-    fun getImage() = images.fixedWidthDownSampled
+    fun getImage() = images.fixedWidth
 }
 
 @Parcelize
 data class Images(
-        @SerializedName("fixed_width_downsampled") val fixedWidthDownSampled: Image = Image()
+        @SerializedName("fixed_width") val fixedWidth: Image = Image()
 ) : Parcelable
 
 @Parcelize

@@ -4,9 +4,9 @@ import androidx.paging.PageKeyedDataSource
 import giphy.android.clone.ui.gif.Gif
 import io.reactivex.disposables.CompositeDisposable
 
-class GifTrendingDataSource(
+class TrendingDataSource(
     private val disposables: CompositeDisposable,
-    private val gifTrendingService: GifTrendingService
+    private val trendingService: TrendingService
 ) : PageKeyedDataSource<Int, Gif>() {
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Gif>) {
@@ -17,7 +17,7 @@ class GifTrendingDataSource(
         callback: LoadInitialCallback<Int, Gif>
     ) {
         disposables.add(
-            gifTrendingService
+            trendingService
                 .getGifs(1)
                 .subscribe({ response -> callback.onResult(response.data, null, 2) }, {})
         )
@@ -25,7 +25,7 @@ class GifTrendingDataSource(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Gif>) {
         disposables.add(
-            gifTrendingService
+            trendingService
                 .getGifs(params.key)
                 .subscribe({ response -> callback.onResult(response.data, params.key + 1) }, {})
         )

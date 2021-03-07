@@ -6,8 +6,8 @@ import androidx.paging.RxPagedListBuilder
 import giphy.android.clone.base.preseneter.BasePresenter
 import giphy.android.clone.base.preseneter.RxPresenter
 import giphy.android.clone.ui.gif.Gif
-import giphy.android.clone.ui.trending.api.GifTrendingDataSource
-import giphy.android.clone.ui.trending.api.GifTrendingService
+import giphy.android.clone.ui.trending.api.TrendingDataSource
+import giphy.android.clone.ui.trending.api.TrendingService
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -15,7 +15,7 @@ class TrendingPresenter(
     val view: TrendingView
 ) : RxPresenter(), BasePresenter, KoinComponent {
 
-    private val gifTrendingService: GifTrendingService by inject()
+    private val trendingService: TrendingService by inject()
 
     override fun onDestroy() = dispose()
 
@@ -23,14 +23,14 @@ class TrendingPresenter(
         add(
             RxPagedListBuilder(dataSource(), getPagedListConfig())
                 .buildObservable()
-                .subscribe({ }, {})
+                .subscribe({ view.onLoadPagedGifs(it) }, {})
         )
     }
 
     private fun dataSource(): DataSource.Factory<Int, Gif> {
         return object : DataSource.Factory<Int, Gif>() {
             override fun create(): DataSource<Int, Gif> =
-                GifTrendingDataSource(disposables, gifTrendingService)
+                TrendingDataSource(disposables, trendingService)
         }
     }
 

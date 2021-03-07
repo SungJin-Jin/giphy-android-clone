@@ -82,4 +82,6 @@ dependencies {
     implementation retrofitDependencies.gsonConverter
     implementation retrofitDependencies.scalarsConverter
 
+    implementation glide
+
 }

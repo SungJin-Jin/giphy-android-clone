@@ -65,6 +65,11 @@ ext {
             gsonConverter   : dependency(retrofitPackage, 'converter-gson', retrofitVersion),
             scalarsConverter: dependency(retrofitPackage, 'converter-scalars', retrofitVersion)
     ]
+
+    glidePackage = 'com.github.bumptech.glide'
+    glideVersion = '4.9.0'
+    glide = dependency(glidePackage, 'glide', glideVersion)
+
 }
 
 private static String dependency(String pack, String artifact, String version) {
