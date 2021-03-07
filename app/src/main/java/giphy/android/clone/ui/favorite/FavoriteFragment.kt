@@ -1,15 +1,12 @@
 package giphy.android.clone.ui.favorite
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import giphy.android.clone.R
+import giphy.android.clone.base.view.BaseFragment
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : BaseFragment<FavoritePresenter>(R.layout.fragment_favorite), FavoriteView {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+    override fun initPresenter() {
+        presenter = FavoritePresenter(this)
     }
+
 }
