@@ -1,18 +1,20 @@
-package giphy.android.clone.ui.gif
+package giphy.android.clone.ui.trending
 
-import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.core.view.updateLayoutParams
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import giphy.android.clone.R
+import giphy.android.clone.common.StaggeredItemDecorator
+import giphy.android.clone.extensions.drawTintColor
 import giphy.android.clone.extensions.load
-import kotlinx.android.synthetic.main.viewholder_gif.view.*
+import giphy.android.clone.ui.gif.Gif
+import kotlinx.android.synthetic.main.viewholder_trending.view.*
 
 class GifPageAdapter(
+    private val actionOnClickLike: (Gif) -> Unit = {}
 ) : PagedListAdapter<Gif, GifPageAdapter.ViewHolder>(diffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -22,24 +24,33 @@ class GifPageAdapter(
         holder.bind(getItem(position))
 
     inner class ViewHolder(parent: ViewGroup) :
-        RecyclerView.ViewHolder(View.inflate(parent.context, R.layout.viewholder_gif, null)) {
+        RecyclerView.ViewHolder(View.inflate(parent.context, R.layout.viewholder_trending, null)) {
 
         fun bind(gif: Gif?) {
             with(itemView) {
                 gif?.let {
                     image.load(gif.getImage().url)
                     image.updateLayoutParams {
-                        height = (gif.getImage().height.toInt() * STAGGERED_GRID_RATIO).toInt()
+                        height = StaggeredItemDecorator.getHeight(gif.getImage().height.toInt())
+                    }
+                    like.drawTintColor(R.color.cool_grey)
+
+                    like.setOnClickListener {
+                        gif.isClicked = !gif.isClicked
+                        like.drawTintColor(getLikeColor(gif))
+                        actionOnClickLike.invoke(gif)
                     }
                 }
             }
         }
+
+        private fun getLikeColor(gif: Gif) = if (gif.isClicked) {
+            R.color.red
+        } else {
+            R.color.cool_grey
+        }
     }
 
-    companion object {
-        private val STAGGERED_GRID_RATIO =
-            Resources.getSystem().displayMetrics.widthPixels / 2 / 200.0
-    }
 }
 
 fun diffItemCallback(): DiffUtil.ItemCallback<Gif> {

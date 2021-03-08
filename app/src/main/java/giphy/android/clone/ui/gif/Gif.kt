@@ -12,10 +12,11 @@ data class Gif(
         val type: String = "",
         val slug: String = "",
         val url: String = "",
-        val images: Images = Images()
+        val images: Images = Images(),
+        var isClicked: Boolean = false
 
 ) : Parcelable {
-        
+
     fun getImage() = images.fixedWidth
 }
 

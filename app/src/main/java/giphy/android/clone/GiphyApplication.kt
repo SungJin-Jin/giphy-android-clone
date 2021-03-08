@@ -1,6 +1,7 @@
 package giphy.android.clone
 
 import androidx.multidex.MultiDexApplication
+import giphy.android.clone.feature.di.databaseModule
 import giphy.android.clone.feature.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -23,6 +24,7 @@ class GiphyApplication : MultiDexApplication() {
         startKoin {
             androidContext(context())
             modules(networkModule)
+            modules(databaseModule)
         }
 
     }

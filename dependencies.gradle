@@ -66,6 +66,14 @@ ext {
             scalarsConverter: dependency(retrofitPackage, 'converter-scalars', retrofitVersion)
     ]
 
+    roomPackage = 'androidx.room'
+    roomVersion = '2.2.5'
+    roomDependencies = [
+            runtime : dependency(roomPackage, 'room-runtime', roomVersion),
+            rxjava2 : dependency(roomPackage, 'room-rxjava2', roomVersion),
+            compiler: dependency(roomPackage, 'room-compiler', roomVersion)
+    ]
+
     glidePackage = 'com.github.bumptech.glide'
     glideVersion = '4.9.0'
     glide = dependency(glidePackage, 'glide', glideVersion)

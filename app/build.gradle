@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 apply from: '../dependencies.gradle'
@@ -81,6 +82,10 @@ dependencies {
     implementation retrofitDependencies.adapterRxJava
     implementation retrofitDependencies.gsonConverter
     implementation retrofitDependencies.scalarsConverter
+
+    implementation roomDependencies.runtime
+    implementation roomDependencies.rxjava2
+    kapt roomDependencies.compiler
 
     implementation glide
 
