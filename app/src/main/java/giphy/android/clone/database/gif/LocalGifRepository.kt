@@ -1,6 +1,6 @@
 package giphy.android.clone.database.gif
 
-import io.reactivex.Observable
+import io.reactivex.Single
 
 class LocalGifRepository(
         private val localGifDao: LocalGifDao
@@ -9,10 +9,9 @@ class LocalGifRepository(
     fun insert(localGif: LocalGif) =
             localGifDao.insert(localGif)
 
-    fun delete(localGif: LocalGif) =
-            localGifDao.delete(localGif)
+    fun deleteByOriginalId(originalId: String) = localGifDao.deleteByOriginalId(originalId)
 
-    fun getAll(): Observable<List<LocalGif>> = localGifDao.findAll()
+    fun getAll(): Single<List<LocalGif>> = localGifDao.findAll()
 
-    fun getByOriginalId(originalId: String) = localGifDao.findByOriginalId(originalId)
+    fun isOriginalIdExist(originalId: String) = localGifDao.existOriginalId(originalId)
 }

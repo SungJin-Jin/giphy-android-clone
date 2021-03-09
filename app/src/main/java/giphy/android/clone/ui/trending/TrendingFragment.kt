@@ -33,6 +33,14 @@ class TrendingFragment : BaseFragment<TrendingPresenter>(R.layout.fragment_trend
         }
     }
 
+    override fun onSuccessSaveFavorite() {
+        Toast.makeText(requireContext(), getString(R.string.success_save_favorite), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSuccessDeleteFavorite() {
+        Toast.makeText(requireContext(), getString(R.string.success_delete_favorite), Toast.LENGTH_SHORT).show()
+    }
+
     private fun handleOnClickLike(gif: Gif) {
         presenter.clickLikeGif(gif)
     }

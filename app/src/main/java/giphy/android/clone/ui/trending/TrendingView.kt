@@ -5,5 +5,7 @@ import giphy.android.clone.ui.gif.Gif
 
 interface TrendingView {
     fun onLoadPagedGifs(pagedList: PagedList<Gif>)
+    fun onSuccessSaveFavorite()
+    fun onSuccessDeleteFavorite()
 
 }

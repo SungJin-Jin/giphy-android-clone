@@ -3,4 +3,6 @@
 
     <string name="label_trending">Trending</string>
     <string name="label_favorites">Favorites</string>
+    <string name="success_save_favorite">Success save favorite</string>
+    <string name="success_delete_favorite">Success delete favorite</string>
 </resources>

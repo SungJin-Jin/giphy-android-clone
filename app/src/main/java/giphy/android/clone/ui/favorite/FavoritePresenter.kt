@@ -27,12 +27,12 @@ class FavoritePresenter(
 
     }
 
-    fun delteLocalGif(localGif: LocalGif) {
-        add(localGifRepository.delete(localGif)
+    fun deleteByOriginalId(localGif: LocalGif) {
+        add(localGifRepository.deleteByOriginalId(localGif.originalId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                        {},
+                        { view.onSuccessDeleteLocalGif(localGif)},
                         {}
                 )
         )

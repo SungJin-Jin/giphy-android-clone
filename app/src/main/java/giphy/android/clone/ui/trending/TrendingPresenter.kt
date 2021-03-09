@@ -35,27 +35,30 @@ class TrendingPresenter(
     }
 
     fun clickLikeGif(gif: Gif) {
-        add(localGifRepository.getByOriginalId(gif.id)
+        add(localGifRepository.isOriginalIdExist(gif.id)
                 .onMain()
-                .subscribe(
-                        { deleteExistLike(it) },
-                        { saveLike(gif) }
-                ))
+                .subscribe({ exists ->
+                    when (exists) {
+                        true -> deleteExistLike(gif)
+                        false -> saveLike(gif)
+                    }
+                }, {})
+        )
     }
 
     private fun saveLike(gif: Gif) {
         add(localGifRepository.insert(LocalGif.mapFor(gif))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe({}, {})
+                .subscribe({ view.onSuccessSaveFavorite() }, {})
         )
     }
 
-    private fun deleteExistLike(localGif: LocalGif) {
-        add(localGifRepository.delete(localGif)
+    private fun deleteExistLike(gif: Gif) {
+        add(localGifRepository.deleteByOriginalId(gif.id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe({}, {})
+                .subscribe({ view.onSuccessDeleteFavorite() }, {})
         )
     }
 

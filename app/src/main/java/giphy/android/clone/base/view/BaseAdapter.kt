@@ -2,7 +2,7 @@ package giphy.android.clone.base.view
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import java.util.ArrayList
+import java.util.*
 
 abstract class BaseAdapter<VH : BaseViewHolder<T>, T> : RecyclerView.Adapter<VH>() {
 
@@ -24,22 +24,6 @@ abstract class BaseAdapter<VH : BaseViewHolder<T>, T> : RecyclerView.Adapter<VH>
         if (isClear) this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
-    }
-
-    open fun addItem(item: T) {
-        this.items.add(item)
-        notifyItemInserted(this.items.size - 1)
-    }
-
-    fun addItemToTop(item: T) {
-        this.items.add(item)
-        notifyItemInserted(0)
-    }
-
-    fun update(item: T) {
-        val index = this.items.indexOf(item)
-        this.items[index] = item
-        notifyItemChanged(index - 1)
     }
 
     fun clear() {

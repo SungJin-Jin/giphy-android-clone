@@ -8,13 +8,12 @@ import giphy.android.clone.base.view.BaseAdapter
 import giphy.android.clone.base.view.BaseViewHolder
 import giphy.android.clone.common.StaggeredItemDecorator
 import giphy.android.clone.database.gif.LocalGif
-import giphy.android.clone.extensions.drawTintColor
 import giphy.android.clone.extensions.load
 import kotlinx.android.synthetic.main.viewholder_trending.view.*
 
-class FavoriteTrendingAdapter(
+class FavoriteAdapter(
         private val actionOnClickLike: (LocalGif) -> Unit = {}
-) : BaseAdapter<FavoriteTrendingAdapter.ViewHolder, LocalGif>() {
+) : BaseAdapter<FavoriteAdapter.ViewHolder, LocalGif>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(parent)
 
@@ -27,7 +26,6 @@ class FavoriteTrendingAdapter(
                     height = StaggeredItemDecorator.getHeight(gif.height.toInt())
                 }
                 like.setOnClickListener {
-                    like.drawTintColor(R.color.red)
                     actionOnClickLike.invoke(gif)
                 }
             }
