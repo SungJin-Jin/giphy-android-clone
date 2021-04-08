@@ -14,7 +14,7 @@ import giphy.android.clone.ui.gif.Gif
 import kotlinx.android.synthetic.main.viewholder_trending.view.*
 
 class GifPageAdapter(
-    private val actionOnClickLike: (Gif) -> Unit = {}
+    private val actionOnClickLike: (Gif, Int) -> Unit = { gif, position -> }
 ) : PagedListAdapter<Gif, GifPageAdapter.ViewHolder>(diffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -33,18 +33,17 @@ class GifPageAdapter(
                     image.updateLayoutParams {
                         height = StaggeredItemDecorator.getHeight(gif.getImage().height.toInt())
                     }
-                    like.drawTintColor(R.color.cool_grey)
+                    like.drawTintColor(getLikeColor(gif.isClicked))
 
                     like.setOnClickListener {
                         gif.isClicked = !gif.isClicked
-                        like.drawTintColor(getLikeColor(gif))
-                        actionOnClickLike.invoke(gif)
+                        actionOnClickLike.invoke(gif, adapterPosition)
                     }
                 }
             }
         }
 
-        private fun getLikeColor(gif: Gif) = if (gif.isClicked) {
+        private fun getLikeColor(isChecked: Boolean) = if (isChecked) {
             R.color.red
         } else {
             R.color.cool_grey

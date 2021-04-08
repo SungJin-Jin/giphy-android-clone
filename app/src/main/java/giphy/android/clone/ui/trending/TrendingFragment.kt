@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.fragment_trending.*
 
 class TrendingFragment : BaseFragment<TrendingPresenter>(R.layout.fragment_trending), TrendingView {
 
+    private val gifPageAdapter: GifPageAdapter by lazy { GifPageAdapter(::handleOnClickLike) }
+
     override fun initPresenter() {
         presenter = TrendingPresenter(this)
     }
@@ -19,7 +21,15 @@ class TrendingFragment : BaseFragment<TrendingPresenter>(R.layout.fragment_trend
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initView()
         loadValue()
+    }
+
+    private fun initView() {
+        with(rcvGifs) {
+            adapter = gifPageAdapter
+            adaptStaggeredGridLayout()
+        }
     }
 
     private fun loadValue() {
@@ -27,10 +37,7 @@ class TrendingFragment : BaseFragment<TrendingPresenter>(R.layout.fragment_trend
     }
 
     override fun onLoadPagedGifs(pagedList: PagedList<Gif>) {
-        with(rcvGifs) {
-            adapter = GifPageAdapter(::handleOnClickLike).apply { submitList(pagedList) }
-            adaptStaggeredGridLayout()
-        }
+        gifPageAdapter.submitList(pagedList)
     }
 
     override fun onSuccessSaveFavorite() {
@@ -41,7 +48,8 @@ class TrendingFragment : BaseFragment<TrendingPresenter>(R.layout.fragment_trend
         Toast.makeText(requireContext(), getString(R.string.success_delete_favorite), Toast.LENGTH_SHORT).show()
     }
 
-    private fun handleOnClickLike(gif: Gif) {
+    private fun handleOnClickLike(gif: Gif, position: Int) {
         presenter.clickLikeGif(gif)
+        gifPageAdapter.notifyItemChanged(position)
     }
 }
