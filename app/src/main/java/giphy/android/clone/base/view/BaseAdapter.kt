@@ -6,7 +6,7 @@ import java.util.*
 
 abstract class BaseAdapter<VH : BaseViewHolder<T>, T> : RecyclerView.Adapter<VH>() {
 
-    protected val items = ArrayList<T>()
+    private val items = ArrayList<T>()
 
     abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH
 

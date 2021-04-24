@@ -1,26 +1,32 @@
 package giphy.android.clone.ui.favorite
 
-import android.view.View.inflate
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.updateLayoutParams
-import giphy.android.clone.R
 import giphy.android.clone.base.view.BaseAdapter
 import giphy.android.clone.base.view.BaseViewHolder
 import giphy.android.clone.common.StaggeredItemDecorator
 import giphy.android.clone.database.gif.LocalGif
+import giphy.android.clone.databinding.ViewholderFavoriteBinding
 import giphy.android.clone.extensions.load
-import kotlinx.android.synthetic.main.viewholder_trending.view.*
 
 class FavoriteAdapter(
-        private val actionOnClickLike: (LocalGif) -> Unit = {}
+    private val actionOnClickLike: (LocalGif) -> Unit = {}
 ) : BaseAdapter<FavoriteAdapter.ViewHolder, LocalGif>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
+        ViewholderFavoriteBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+    )
 
-    inner class ViewHolder(parent: ViewGroup)
-        : BaseViewHolder<LocalGif>(inflate(parent.context, R.layout.viewholder_favorite, null)) {
+    inner class ViewHolder(private val binding: ViewholderFavoriteBinding) :
+        BaseViewHolder<LocalGif>(binding.root) {
+
         override fun bind(gif: LocalGif) {
-            with(itemView) {
+            with(binding) {
                 image.load(gif.url)
                 image.updateLayoutParams {
                     height = StaggeredItemDecorator.getHeight(gif.height.toInt())

@@ -4,40 +4,38 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import giphy.android.clone.R
+import giphy.android.clone.databinding.MainActivityBinding
 import giphy.android.clone.ui.favorite.FavoriteFragment
 import giphy.android.clone.ui.trending.TrendingFragment
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: MainActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = MainActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initView()
     }
 
     private fun initView() {
-        initViewPager()
-        initTabLayout()
-    }
+        with(binding) {
+            viewPager.adapter = createViewPagerAdapter()
 
-    private fun initViewPager() {
-        viewPager.adapter = createViewPagerAdapter()
-    }
-
-    private fun initTabLayout() {
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = getString(TAB_TITLES[position])
-        }.attach()
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.text = getString(TAB_TITLES[position])
+            }.attach()
+        }
     }
 
     private fun createViewPagerAdapter(): ActivityViewPagerAdapter {
         return ActivityViewPagerAdapter(this)
-                .apply {
-                    add(TrendingFragment())
-                    add(FavoriteFragment())
-                }
+            .apply {
+                add(TrendingFragment())
+                add(FavoriteFragment())
+            }
     }
 
     companion object {

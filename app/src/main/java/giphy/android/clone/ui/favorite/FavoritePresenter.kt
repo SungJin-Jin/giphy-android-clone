@@ -4,6 +4,7 @@ import giphy.android.clone.base.preseneter.BasePresenter
 import giphy.android.clone.base.preseneter.RxPresenter
 import giphy.android.clone.database.gif.LocalGif
 import giphy.android.clone.database.gif.LocalGifRepository
+import giphy.android.clone.extensions.addTo
 import giphy.android.clone.extensions.onMain
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -16,26 +17,21 @@ class FavoritePresenter(
 
     private val localGifRepository: LocalGifRepository by inject()
 
-    override fun onDestroy() {
-        dispose()
-    }
+    override fun onDestroy() = dispose()
 
     fun loadGifs() {
-        add(localGifRepository.getAll()
+        localGifRepository.getAll()
                 .onMain()
-                .subscribe({ view.onLoadLocalGifs(it) }, {}))
-
+                .subscribe({ view.onLoadLocalGifs(it) }, {})
+                .addTo(disposables)
     }
 
     fun deleteByOriginalId(localGif: LocalGif) {
-        add(localGifRepository.deleteByOriginalId(localGif.originalId)
+        localGifRepository.deleteByOriginalId(localGif.originalId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(
-                        { view.onSuccessDeleteLocalGif(localGif)},
-                        {}
-                )
-        )
+                .subscribe({ view.onSuccessDeleteLocalGif(localGif) }, {})
+                .addTo(disposables)
     }
 
 }
